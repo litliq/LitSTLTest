@@ -8,6 +8,7 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <algorithm>
 
 
 
@@ -61,6 +62,7 @@ void ThreadAndLockTest()
 	cout << "thread end\n\n";
 }
 
+// 时间
 void DateTest()
 {
 	std::chrono::system_clock::time_point tp = std::chrono::system_clock::now();
@@ -73,6 +75,51 @@ void DateTest()
 	Sleep(1000);
 	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - tp);
 	cout << time_span.count() << endl << endl;
+}
+
+// 快速排序
+int SortComp(int iFisrt, int iSecond)
+{
+	// 从大到小排序
+	return iFisrt > iSecond;
+}
+
+void SortTest()
+{
+	srand((unsigned)time(0)); // 随机种子
+
+	const int iNum = 10;
+	int szVal[iNum] = {0};
+	printf("before sort, val: \n");
+	int i = 0;
+	for (; i < iNum; i++)
+	{
+		szVal[i] = rand() % 100;
+		if (0 == i)
+		{
+			printf("%d", szVal[i]);
+		}
+		else
+		{
+			printf(",%d", szVal[i]);
+		}	
+	}
+
+	// 排序
+	std::sort(szVal, szVal + iNum, SortComp);
+
+	printf("\nafter sort,val: \n");
+	for (i = 0; i < iNum; i++)
+	{
+		if (0 == i)
+		{
+			printf("%d", szVal[i]);
+		}
+		else
+		{
+			printf(",%d", szVal[i]);
+		}	
+	}
 }
 
 int main()
@@ -92,6 +139,9 @@ int main()
 
 	// 时间
 	DateTest();
+
+	// 排序
+	SortTest();
 
 	cout << endl << endl;
 	system("pause");
